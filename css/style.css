@@ -1,0 +1,41 @@
+.container{
+    padding: 20px;
+}
+.container h1{
+    font-size: 28px;
+    font-family: cursive;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.card{
+    padding: 0;
+}
+.card .table{
+    margin-bottom: 0;
+}
+.btn{
+    padding: 4px 6px;
+}
+.btn-default{
+    border: 1px solid #7995A7;
+}
+.btn-default:hover{
+    border: 1px solid #7995A7;
+    background-color: #deebf2;
+}
+i.pencil, i.trash{
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    vertical-align: middle;
+}
+.pencil:before {
+    content: url(../images/edit-icon.png);
+}
+.trash:before {
+    content: url(../images/delete-icon.png);
+}
