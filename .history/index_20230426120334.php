@@ -11,28 +11,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
-    <style>
-        #sample_data tbody tr {
-            cursor: pointer;
-        }
-        #ajax_loader{
-    position:fixed;
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-    background:rgba(0,0,0,.5);
-    z-index:3333 
-     
-}
-    </style>
 </head>
 <body>
-<div id='ajax_loader' style=" display: none;">
-    <img  style="position:absolute;    
-    left:50%;
-    top:50%;" src="https://www.drupal.org/files/issues/ajax-loader.gif"></img>
-</div>
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -49,64 +29,60 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Register <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Login</a></li>
-        
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
       </ul> 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="" style="margin:30px">
+<div class="container">
     <h3 align="center">Invoice Management</h3>
-    <div class="row well" style="height:850px !important">
-        <div class="col-md-6">
-        <iframe
-            src="hello.pdf"
-            id="downloa_pdf" 
-            scrolling="auto"
-            height="800px"
-            width="100%"
-        ></iframe>
-        </div>
-        <div class="col-md-6" style="  height:700px!imporrtant">
+    <br />
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Approved Invoices</a></li>
+        <li><a data-toggle="tab" href="#menu1">Invoices To Approve</a></li>
+    </ul>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Approved Invoices</a></li>
-                <li><a data-toggle="tab" href="#menu1">Invoices To Approve</a></li>
-            </ul>
-
-            <div class="tab-content panel panel-default" style="  height:700px!imporrtant">
-                <div id="home" class="tab-pane fade in active">
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <div class="col-md-4">
-                                <input type="file" id="files" class="hidden"/>
-                                <label for="files" class="btn btn-success">Import CSV</label>
-                            </div>
-                            <table id="sample_data" class="table table-bordered table-striped" style="  height:700px!imporrtant">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Vendor</th>
-                                    <th>Invoice ID</th>
-                                    <th>Client</th>
-                                    <th>Client Address</th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
+    <div class="tab-content panel panel-default">
+        <div id="home" class="tab-pane fade in active">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="col-md-4">
+                        <input type="file" id="files" class="hidden"/>
+                        <label for="files" class="btn btn-success">Import CSV</label>
                     </div>
-                </div>
-                <div id="menu1" class="tab-pane fade">
-                    <h3>Menu 1</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <table id="sample_data" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vendor</th>
+                            <th>Invoice ID</th>
+                            <th>Client</th>
+                            <th>Client Address</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
     </div>
-    <br />
-    
 </div>
 <br />
 <br />
@@ -139,8 +115,7 @@
         var dataTable = $('#sample_data').DataTable({
             "dom": 'Bfrtip',
             "processing" : true,
-            "serverSide" : true, 
-            "scrollY": 570, 
+            "serverSide" : true,
             "order" : [],
             "ajax" : {
                 url:"fetch.php",
@@ -149,32 +124,8 @@
             buttons: [ ],
         });
 
-        $('#sample_data tbody').on('click', 'tr', function (e) {
-            $("#ajax_loader").show();
-            var data = new FormData(); 
-            data.append('action', "delete");
-            data.append('id',  $(this).attr('id'));
-            $("#sample_data tbody tr").css("background-color","inherit"); 
-            $(this).css("background-color","#5cb85c"); 
-            
-            $.ajax({
-                type: "POST",
-                url: "action.php",
-                data:data,
-                dataType:'json',
-                processData: false,
-                contentType: false,
-                success: function(response){ 
-                    
-                   $("#downloa_pdf").attr("src","hello.pdf");
-                   $("#ajax_loader").hide();
-
-                }
-            });
-        });
-
         $("#populateTable").click(function(){
-            dataTable.rows.add($.csv.toObjects($("#csvImport").val())).draw(); 
+            dataTable.rows.add($.csv.toObjects($("#csvImport").val())).draw();
         });
 
         $('#sample_data').on('draw.dt', function(){
@@ -201,7 +152,7 @@
                 {
                     if(data.action == 'delete')
                     {
-                       // document.getElementById('download').click();
+                        document.getElementById('download').click();
                         //$('#' + data.id).remove();
                         //$('#sample_data').DataTable().ajax.reload();
                     }
@@ -213,4 +164,4 @@
 </script>
 </body>
 </html>
- 
+

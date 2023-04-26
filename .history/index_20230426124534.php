@@ -16,22 +16,18 @@
             cursor: pointer;
         }
         #ajax_loader{
-    position:fixed;
+    position:absolute;
     width:100%;
     height:100%;
     left:0;
     top:0;
     background:rgba(0,0,0,.5);
-    z-index:3333 
-     
 }
     </style>
 </head>
 <body>
-<div id='ajax_loader' style=" display: none;">
-    <img  style="position:absolute;    
-    left:50%;
-    top:50%;" src="https://www.drupal.org/files/issues/ajax-loader.gif"></img>
+<div id='ajax_loader' style="position: fixed; left: 50%; top: 50%; display: none;">
+    <img src="https://www.drupal.org/files/issues/ajax-loader.gif"></img>
 </div>
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">

@@ -15,24 +15,9 @@
         #sample_data tbody tr {
             cursor: pointer;
         }
-        #ajax_loader{
-    position:fixed;
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-    background:rgba(0,0,0,.5);
-    z-index:3333 
-     
-}
     </style>
 </head>
 <body>
-<div id='ajax_loader' style=" display: none;">
-    <img  style="position:absolute;    
-    left:50%;
-    top:50%;" src="https://www.drupal.org/files/issues/ajax-loader.gif"></img>
-</div>
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,7 +47,7 @@
         <div class="col-md-6">
         <iframe
             src="hello.pdf"
-            id="downloa_pdf" 
+             
             scrolling="auto"
             height="800px"
             width="100%"
@@ -139,8 +124,10 @@
         var dataTable = $('#sample_data').DataTable({
             "dom": 'Bfrtip',
             "processing" : true,
-            "serverSide" : true, 
-            "scrollY": 570, 
+            "serverSide" : true,
+             
+   "scrollY": 570,
+    
             "order" : [],
             "ajax" : {
                 url:"fetch.php",
@@ -149,32 +136,14 @@
             buttons: [ ],
         });
 
-        $('#sample_data tbody').on('click', 'tr', function (e) {
-            $("#ajax_loader").show();
-            var data = new FormData(); 
-            data.append('action', "delete");
-            data.append('id',  $(this).attr('id'));
-            $("#sample_data tbody tr").css("background-color","inherit"); 
-            $(this).css("background-color","#5cb85c"); 
-            
-            $.ajax({
-                type: "POST",
-                url: "action.php",
-                data:data,
-                dataType:'json',
-                processData: false,
-                contentType: false,
-                success: function(response){ 
-                    
-                   $("#downloa_pdf").attr("src","hello.pdf");
-                   $("#ajax_loader").hide();
 
-                }
-            });
-        });
+$('#sample_data tbody').on('click', 'tr', function (e) {
+    $(this).css("background-color","##5cb85c");
+   
+ });
 
         $("#populateTable").click(function(){
-            dataTable.rows.add($.csv.toObjects($("#csvImport").val())).draw(); 
+            dataTable.rows.add($.csv.toObjects($("#csvImport").val())).draw();
         });
 
         $('#sample_data').on('draw.dt', function(){
@@ -201,7 +170,7 @@
                 {
                     if(data.action == 'delete')
                     {
-                       // document.getElementById('download').click();
+                        document.getElementById('download').click();
                         //$('#' + data.id).remove();
                         //$('#sample_data').DataTable().ajax.reload();
                     }
